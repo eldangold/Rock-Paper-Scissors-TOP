@@ -32,11 +32,13 @@ function playGame() {
             (humanChoice === "scissors" && computerChoice === "paper") ||
             (humanChoice === "rock" && computerChoice === "scissors")
          ) {
-            console.log("You win!",humanChoice,"beats",computerChoice);  
+            console.log("You win!",humanChoice,"beats",computerChoice);
+            humanScore++;
         }
     
         else {
             console.log("You lose!",computerChoice,"beats",humanChoice);
+            computerScore++;
         }
     }
     const humanSelection = getHumanChoice();
@@ -47,3 +49,15 @@ function playGame() {
 for (let i = 0; i < 5; i++) {
     playGame();
     }
+
+if (computerScore>humanScore) {
+    console.log("You lose! You have", humanScore, "vs", computerScore, "by computer!");
+}
+
+else if (computerScore<humanScore) {
+    console.log("You win! You have", humanScore, "vs", computerScore, "by computer!")
+}
+
+else {
+    console.log("It's a tie!")
+}
