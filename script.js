@@ -46,9 +46,9 @@ function playGame() {
     playRound(humanSelection, computerSelection);
 }
 
-for (let i = 0; i < 5; i++) {
-    playGame();
-    }
+///for (let i = 0; i < 5; i++) {
+///    playGame();
+///    }
 
 if (computerScore>humanScore) {
     console.log("You lose! You have", humanScore, "vs", computerScore, "by computer!");
