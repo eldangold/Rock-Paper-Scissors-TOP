@@ -15,16 +15,14 @@ function getComputerChoice() {
         break;        
     }
 }
+document.getElementById("rock").addEventListener("click", humanClick);
+document.getElementById("paper").addEventListener("click", humanClick);
+document.getElementById("scissors").addEventListener("click", humanClick);
 
-function getHumanChoice() {
-    let humanChoice = prompt("Type your choice:").toLowerCase();
-    return humanChoice;
-}
-
-function playGame() {
     function playRound(humanChoice, computerChoice) {
         if (computerChoice === humanChoice) {
             console.log("Tie");
+            document.getElementById("currentResults").textContent = "Tie!";
         }
     
         else if (
@@ -33,31 +31,40 @@ function playGame() {
             (humanChoice === "rock" && computerChoice === "scissors")
          ) {
             console.log("You win!",humanChoice,"beats",computerChoice);
+            document.getElementById("currentResults").textContent = `You win! ${humanChoice} beats ${computerChoice}`;
             humanScore++;
         }
     
         else {
             console.log("You lose!",computerChoice,"beats",humanChoice);
+            document.getElementById("currentResults").textContent = `You lose! ${computerChoice} beats ${humanChoice}`;
             computerScore++;
         }
+        document.getElementById("roundResults").textContent = `Human: ${humanScore} VS Computer ${computerScore}`;
+
+        if (humanScore === 5 || computerScore === 5) {
+            if (humanScore === 5) {
+                document.getElementById("roundResults").textContent = `You won the game! Resetting the game...`;
+            }
+            else if (computerScore === 5) {
+                document.getElementById("roundResults").textContent = `Computer won the game! Resetting the game...`;
+            }
+            else {
+                document.getElementById("roundResults").textContent = `It's a tie! Resetting the game...`;
+            }
+            setTimeout(resetGame, 3000);
+        }
     }
-    const humanSelection = getHumanChoice();
-    const computerSelection = getComputerChoice();
-    playRound(humanSelection, computerSelection);
+
+function humanClick(e) {
+    const humanChoice = e.target.id;
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
 }
 
-///for (let i = 0; i < 5; i++) {
-    playGame();
-///    }
-
-if (computerScore>humanScore) {
-    console.log("You lose! You have", humanScore, "vs", computerScore, "by computer!");
-}
-
-else if (computerScore<humanScore) {
-    console.log("You win! You have", humanScore, "vs", computerScore, "by computer!")
-}
-
-else {
-    console.log("It's a tie!")
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    document.getElementById("currentResults").textContent = "";
+    document.getElementById("roundResults").textContent = "";
 }
